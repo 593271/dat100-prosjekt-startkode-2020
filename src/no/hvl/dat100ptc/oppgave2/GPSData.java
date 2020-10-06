@@ -10,6 +10,12 @@ public class GPSData {
 
 	public GPSData(int n) {
 
+		
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(gpspoints[i]);
+		}
+		
 		// TODO - START
 		
 		throw new UnsupportedOperationException(TODO.construtor("GPSData"));
