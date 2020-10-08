@@ -9,19 +9,11 @@ public class GPSData {
 	protected int antall = 0;
 
 	public GPSData(int n) {
+		   gpspoints = new GPSPoint[n];
+	        antall = 0;
+	    }
 
-		
-		
-		for (int i = 0; i < n; i++) {
-			System.out.println(gpspoints[i]);
-		}
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.construtor("GPSData"));
 
-		// TODO - SLUTT
-	}
 
 	public GPSPoint[] getGPSPoints() {
 		return this.gpspoints;
@@ -29,38 +21,46 @@ public class GPSData {
 	
 	protected boolean insertGPS(GPSPoint gpspoint) {
 
-		boolean inserted = false;
+        boolean inserted = false;
 
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
+        if (antall < gpspoints.length){
+            gpspoints[antall] = gpspoint;
+            antall += 1;
+            inserted = true;
+        }
 
-		// TODO - SLUTT
+        return inserted;
+ 
 	}
 
 	public boolean insert(String time, String latitude, String longitude, String elevation) {
 
-		GPSPoint gpspoint;
 
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
+	        // Sender inn data, disse blir konvertert, returnerer et GPS punkt
+	        GPSPoint point = GPSDataConverter.convert(time, latitude, longitude, elevation);
 
-		// TODO - SLUTT
+	        // Legg punktet til i arrayet
+	        boolean success = insertGPS(point);
+
+	        return success;
 		
 	}
 
 	public void print() {
+		  System.out.println("====== Konvertert GPS Data - START ======");
 
-		System.out.println("====== Konvertert GPS Data - START ======");
+	        for(int i = 0; i < antall; i++) {
+	            // Alternativ 1
+//	            System.out.print(gpspoints[i].toString());
 
-		// TODO - START
+	            // Alternativ 2
+	            String resultat = gpspoints[i].toString();
+	            System.out.print(resultat);
+	        }
 
-		throw new UnsupportedOperationException(TODO.method());
+	        System.out.println("====== Konvertert GPS Data - SLUTT ======");
 
-		// TODO - SLUTT
-		
-		// System.out.println("====== Konvertert GPS Data - SLUTT ======");
+	    }
 
 	}
-}
+
