@@ -100,23 +100,22 @@ public class GPSUtils {
 
 		int secs;
 		double speed;
+		double avstand = distance(gpspoint1, gpspoint2);
+		
+		secs = gpspoint2.getTime();
+		secs -= gpspoint1.getTime();
 		
 		
-		double distance = distance(gpspoint1,gpspoint2);
-		double time1 = gpspoint1.getTime();
-		double time2 = gpspoint2.getTime();
-		double totaltid = time1+time2;
-		
-		speed = (distance/totaltid)*3.6;
+		speed = (avstand/secs) * 3.6;
 		
 		return speed;
 
-
+		
 
 	}
 
 	public static String formatTime(int secs) {
-
+		
 		String timestr;
 		String TIMESEP = ":";
 		
@@ -142,7 +141,7 @@ public class GPSUtils {
 
 		
 		
-		str = String.format("      %.2f", d);
+		str = String.format("%10.2f", d);
 		
 		return str;
 
