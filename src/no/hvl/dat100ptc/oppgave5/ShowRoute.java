@@ -45,6 +45,8 @@ public class ShowRoute extends EasyGraphics {
 		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 
+
+
 		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon)); 
 
 		return xstep;
@@ -53,23 +55,37 @@ public class ShowRoute extends EasyGraphics {
 	// antall y-pixels per breddegrad
 	public double ystep() {
 	
-		double ystep;
 		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
+		double maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
+		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
 
-		// TODO - SLUTT
+		double ystep = MAPYSIZE / (Math.abs(maxlat - minlat)); 
+
+		return ystep;
+
 		
 	}
 
 	public void showRouteMap(int ybase) {
+		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
+		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 
-		// TODO - START
+
 		
-		throw new UnsupportedOperationException(TODO.method());
+		setColor(51,255,0);
+		for (int i = 0; i < gpspoints.length-1; i++) {
+			
+
+			
+			fillCircle((int) (MARGIN+(gpspoints[i].getLongitude()-minlon)*xstep()),(int)(ybase-(gpspoints[i].getLatitude()-minlat)*ystep()),5);
+			
+			drawLine((int) (MARGIN+(gpspoints[i].getLongitude()-minlon)*xstep()),(int)(ybase-(gpspoints[i].getLatitude()-minlat)*ystep()),
+					(int) (MARGIN+(gpspoints[i+1].getLongitude()-minlon)*xstep()),(int)(ybase-(gpspoints[i+1].getLatitude()-minlat)*ystep()));
+
+		}
+			
 		
-		// TODO - SLUTT
+
 	}
 
 	public void showStatistics() {
@@ -78,12 +94,36 @@ public class ShowRoute extends EasyGraphics {
 
 		setColor(0,0,0);
 		setFont("Courier",12);
+
+		String streker = "==============================================";
+		String totaltid = "Total Time     :" + GPSUtils.formatTime(gpscomputer.totalTime());
+		String totaldistance = "Total Distance :" + GPSUtils.formatDouble(gpscomputer.totalDistance()/1000)+" km";
+		String totalelevation = "Total elevation:" + GPSUtils.formatDouble(gpscomputer.totalElevation())+" m";
+		String maxSpeed = "Max Speed       :" + GPSUtils.formatDouble(gpscomputer.maxSpeed()) + " km/t";
+		String averageSpeed = "Average speed  :" + GPSUtils.formatDouble(gpscomputer.averageSpeed())+" km/t";
+		String totalKcal = "Energy         :" + GPSUtils.formatDouble(gpscomputer.totalKcal(80))+" kcal";
+
+		//for (int i = 0; i < gpspoints.length; i++) {
+
+			//totaltid = "Total Time     :" + GPSUtils.formatTime(gpspoints[i].getTime());
+			//drawString(totaltid,TEXTDISTANCE,90);
+
+			
+		//}
 		
-		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
 		
-		// TODO - SLUTT;
+		drawString(streker,TEXTDISTANCE,10);
+		drawString(totaltid,TEXTDISTANCE,20);
+		drawString(totaldistance,TEXTDISTANCE,30);
+		drawString(totalelevation,TEXTDISTANCE,40);
+		drawString(maxSpeed,TEXTDISTANCE,50);
+		drawString(averageSpeed,TEXTDISTANCE,60);
+		drawString(totalKcal,TEXTDISTANCE,70);
+		drawString(streker,TEXTDISTANCE,80);
+
+		
+
 	}
 
 }
